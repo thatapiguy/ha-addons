@@ -1,0 +1,45 @@
+{
+  "name": "Ntfy",
+  "version": "1.0.0",
+  "slug": "ntfy",
+  "description": "A simple pub-sub notification service with your Home Assistant",
+  "url": "https://github.com/yourusername/hassio-addons/tree/main/ntfy",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "startup": "application",
+  "boot": "auto",
+  "host_network": false,
+  "ports": {
+    "80/tcp": 80
+  },
+  "ports_description": {
+    "80/tcp": "Web interface (Not required for Home Assistant ingress)"
+  },
+  "hassio_api": true,
+  "hassio_role": "default",
+  "webui": "http://[HOST]:[PORT:80]",
+  "ingress": true,
+  "ingress_port": 80,
+  "panel_icon": "mdi:bell-ring",
+  "options": {
+    "base_url": "",
+    "behind_proxy": false,
+    "listen_http": ":80",
+    "auth_file": "",
+    "auth_default_access": "deny-all",
+    "attachment_cache_dir": "/data/attachments",
+    "cache_file": "/data/cache.db",
+    "log_level": "INFO",
+    "log_format": "text"
+  },
+  "schema": {
+    "base_url": "str?",
+    "behind_proxy": "bool",
+    "listen_http": "str",
+    "auth_file": "str?",
+    "auth_default_access": "list(deny-all|deny-subscribers|permit-all)",
+    "attachment_cache_dir": "str",
+    "cache_file": "str", 
+    "log_level": "list(DEBUG|INFO|WARNING|ERROR)",
+    "log_format": "list(text|json)"
+  }
+}

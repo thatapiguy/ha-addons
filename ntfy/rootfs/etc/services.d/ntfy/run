@@ -1,0 +1,40 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start ntfy service
+# ==============================================================================
+
+# Get config values
+bashio::log.info "Starting ntfy..."
+
+# Get config values
+base_url=$(bashio::config 'base_url')
+behind_proxy=$(bashio::config 'behind_proxy')
+listen_http=$(bashio::config 'listen_http')
+auth_file=$(bashio::config 'auth_file')
+auth_default_access=$(bashio::config 'auth_default_access')
+attachment_cache_dir=$(bashio::config 'attachment_cache_dir')
+cache_file=$(bashio::config 'cache_file')
+log_level=$(bashio::config 'log_level')
+log_format=$(bashio::config 'log_format')
+
+# Create directories if they don't exist
+mkdir -p "${attachment_cache_dir}"
+
+# Prepare command
+cmd="ntfy serve"
+
+# Add configuration parameters
+[[ -n "${base_url}" ]] && cmd="${cmd} --base-url ${base_url}"
+[[ "${behind_proxy}" = "true" ]] && cmd="${cmd} --behind-proxy"
+[[ -n "${listen_http}" ]] && cmd="${cmd} --listen-http ${listen_http}"
+[[ -n "${auth_file}" ]] && cmd="${cmd} --auth-file ${auth_file}"
+[[ -n "${auth_default_access}" ]] && cmd="${cmd} --auth-default-access ${auth_default_access}"
+[[ -n "${attachment_cache_dir}" ]] && cmd="${cmd} --attachment-cache-dir ${attachment_cache_dir}"
+[[ -n "${cache_file}" ]] && cmd="${cmd} --cache-file ${cache_file}"
+[[ -n "${log_level}" ]] && cmd="${cmd} --log-level ${log_level}"
+[[ -n "${log_format}" ]] && cmd="${cmd} --log-format ${log_format}"
+
+bashio::log.info "Executing: ${cmd}"
+
+# Run ntfy
+exec ${cmd}
