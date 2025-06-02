@@ -1,6 +1,6 @@
 {
   "name": "Ntfy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "slug": "ntfy",
   "description": "A simple pub-sub notification service with your Home Assistant",
   "url": "https://github.com/thatapiguy/ha-addons/tree/main/ntfy",
