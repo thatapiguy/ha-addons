@@ -42,7 +42,7 @@ This is an active open-source project. Feel free to use it, fork it, improve it 
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
 [i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
-[ntfy-version-shield]: https://img.shields.io/badge/version-v1.0.0-blue.svg
+[ntfy-version-shield]: https://img.shields.io/badge/version-v1.0.1-blue.svg
 [addon-ntfy]: ntfy/README.md
 [addon-docs-ntfy]: ntfy/DOCS.md
-[issue]: https://github.com/vivekbavishi/ha-addons/issues
+[issue]: https://github.com/thatapiguy/ha-addons/issues
