@@ -1,0 +1,36 @@
+name: "Build and Publish Add-on"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and publish add-on
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: ["aarch64", "amd64", "armhf", "armv7", "i386"]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Get version
+        id: version
+        uses: home-assistant/actions/helpers/version@master
+        with:
+          type: addon
+
+      - name: Build add-on
+        uses: home-assistant/builder@master
+        with:
+          args: |
+            --${{ matrix.arch }} \
+            --target ntfy \
+            --version ${{ steps.version.outputs.version }} \
+            --docker-hub thatapiguy
