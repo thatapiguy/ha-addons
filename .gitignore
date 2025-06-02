@@ -1,0 +1,14 @@
+# General
+.DS_Store
+.idea
+.cloud
+.env
+.vscode
+
+# Logs
+*.log
+
+# Home Assistant Add-on temporary files
+tmp
+.ssh
+.bash_history
