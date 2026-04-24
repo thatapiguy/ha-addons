@@ -1,0 +1,22 @@
+name: KitchenOwl
+version: "0.7.7"
+slug: kitchenowl
+description: Self-hosted grocery list and recipe manager
+url: https://kitchenowl.org
+arch:
+  - amd64
+  - aarch64
+ports:
+  8080/tcp: 8080
+ports_description:
+  8080/tcp: KitchenOwl Web UI
+map:
+  - share:rw
+options:
+  jwt_secret_key: ""
+  debug: false
+  mcp_enabled: false
+schema:
+  jwt_secret_key: str
+  debug: bool
+  mcp_enabled: bool
