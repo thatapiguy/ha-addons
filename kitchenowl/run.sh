@@ -1,23 +1,29 @@
-#!/usr/bin/env bashio
+#!/usr/bin/env bash
+set -e
 
-JWT_SECRET_KEY=$(bashio::config 'jwt_secret_key')
-if bashio::config.is_empty 'jwt_secret_key'; then
+OPTIONS="/data/options.json"
+
+_opt() { python3 -c "import json; d=json.load(open('${OPTIONS}')); print(d.get('$1', ''))" ; }
+_bool() { python3 -c "import json; d=json.load(open('${OPTIONS}')); print(str(d.get('$1', False)).lower())" ; }
+
+jwt_secret=$(_opt 'jwt_secret_key')
+if [ -z "${jwt_secret}" ]; then
     KEY_FILE="/data/.jwt_secret"
     if [ ! -f "${KEY_FILE}" ]; then
-        cat /proc/sys/kernel/random/uuid | tr -d '-' > "${KEY_FILE}"
-        bashio::log.warning "No JWT secret key configured. Generated and saved to /data/.jwt_secret. Set it explicitly in add-on config for portability across reinstalls."
+        python3 -c "import uuid; print(uuid.uuid4().hex)" > "${KEY_FILE}"
+        echo "WARNING: No JWT secret key configured. Generated and saved to /data/.jwt_secret. Set it explicitly in add-on config for portability across reinstalls."
     fi
-    JWT_SECRET_KEY=$(cat "${KEY_FILE}")
+    jwt_secret=$(cat "${KEY_FILE}")
 fi
 
-export JWT_SECRET_KEY
+export JWT_SECRET_KEY="${jwt_secret}"
 export STORAGE_PATH="/data"
-export DEBUG=$(bashio::config 'debug')
+export DEBUG=$(_bool 'debug')
 
-if bashio::config.true 'mcp_enabled'; then
+if [ "$(_bool 'mcp_enabled')" = "true" ]; then
     export KITCHENOWL_MCP_ENABLED="true"
 fi
 
-bashio::log.info "Starting KitchenOwl..."
+echo "INFO: Starting KitchenOwl..."
 cd /usr/src/kitchenowl
 exec ./entrypoint.sh --ini wsgi.ini:web --gevent 200 --max-fd 1048576
