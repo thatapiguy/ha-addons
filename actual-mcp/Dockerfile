@@ -1,5 +1,4 @@
-ARG BUILD_FROM
-FROM ${BUILD_FROM}
+FROM node:22-bookworm-slim
 
 LABEL maintainer="vivekbavishi@gmail.com"
 

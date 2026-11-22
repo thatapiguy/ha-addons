@@ -1,5 +1,5 @@
 name: Actual Budget MCP Server
-version: "0.1.0"
+version: "0.1.1"
 slug: actual_mcp
 description: MCP server that lets Claude and other AI assistants read and manage your Actual Budget
 url: https://github.com/agigante80/actual-mcp-server
