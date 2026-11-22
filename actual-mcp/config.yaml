@@ -1,0 +1,30 @@
+name: Actual Budget MCP Server
+version: "0.1.0"
+slug: actual_mcp
+description: MCP server that lets Claude and other AI assistants read and manage your Actual Budget
+url: https://github.com/agigante80/actual-mcp-server
+arch:
+  - amd64
+  - aarch64
+init: false
+startup: application
+boot: auto
+ports:
+  3600/tcp: 3600
+ports_description:
+  3600/tcp: MCP endpoint (/http) and health check (/health)
+watchdog: http://[HOST]:[PORT:3600]/health
+options:
+  actual_server_url: http://1773b675-actualbudget:5006
+  actual_password: ""
+  budget_sync_id: ""
+  budget_encryption_password: ""
+  auth_token: ""
+  read_only: true
+schema:
+  actual_server_url: str
+  actual_password: password
+  budget_sync_id: str
+  budget_encryption_password: password?
+  auth_token: password
+  read_only: bool
